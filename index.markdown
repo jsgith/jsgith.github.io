@@ -4,3 +4,6 @@
 
 layout: home
 ---
+
+
+Some content here. I can [add a link](/my-new-url/) here and so forth.
