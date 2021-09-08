@@ -3,4 +3,4 @@ layout: "page"
 title: Donate
 ---
 
-Donate to our site
+If you would like to donate please send me an email. 

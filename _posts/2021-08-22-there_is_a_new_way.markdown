@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Fist Post"
+title:  "There is a new way of life"
 date:   2021-08-22 14:26:59 +0100
 categories: jekyll update
 permalink: "/my-new-url/" # to use a variable we can do  /:categories and this will have /update in the url which is the category

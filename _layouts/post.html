@@ -1,112 +1,39 @@
 ---
+layout: default
 ---
-<style>
-    @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-    .container {
-        max-width: 1100px;
-        margin: auto;
-    }
-    a, p, ul li, ol li, h1, h2, h3, h4, h5, h6 {
-            font-family: 'Open Sans', sans-serif;
-    }
-    a, p, ul li, ol li {
-        font-size: 1.2rem;
-    }
-    main {
-        float: left;
-        width: 70%;
-        min-height: 300px;
-    }
-    aside {
-        float: right;
-        width: 25%;
-        min-height: 300px;
-    }
-    footer {
-        display: inline-block;
-        width: 100%;
-        text-align: center;
-    }
-    /* Style the navigation menu */
-    .topnav {
-    overflow: hidden;
-    background-color: whitesmoke;
-    position: relative;
-    border-bottom: 2px solid #333;
-    }
 
-    /* Hide the links inside the navigation menu (except for logo/home) */
-    .topnav #myLinks {
-    display: none;
-    }
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
-    /* Style navigation menu links */
-    .topnav a {
-    color: black;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-    display: block;
-    }
-
-    /* Style the hamburger menu */
-    .topnav a.icon {
-    background: whitesmoke;
-    color: black;
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    }
-
-    /* Add a grey background color on mouse-over */
-    .topnav a:hover {
-    background-color: #ddd;
-    color: black;
-    }
-
-    /* Style the active link (or home/logo) */
-    .active {
-    background-color: whitesmoke;
-    color: white;
-    }
-</style>
-<div class="container"> 
-    <header>
-        <!-- Top Navigation Menu -->
-        <div class="topnav">
-            <a href="/index.html" class="active">Home</a>
-            <!-- Navigation links (hidden by default) -->
-            <div id="myLinks">
-                <a href="/contact.html">Contact</a>
-                <a href="/about.html">About</a>
-            </div>
-            <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
-            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                Menu
-            </a>
-        </div>
+    <header class="post-header">
+      <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+      <p class="post-meta">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+          {{ page.date | date: date_format }}
+        </time>
+        {%- if page.modified_date -%}
+          ~ 
+          {%- assign mdate = page.modified_date | date_to_xmlschema -%}
+          <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">
+            {{ mdate | date: date_format }}
+          </time>
+        {%- endif -%}
+        {%- if page.author -%}
+          • {% for author in page.author %}
+            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+              <span class="p-author h-card" itemprop="name">{{ author }}</span></span>
+              {%- if forloop.last == false %}, {% endif -%}
+          {% endfor %}
+        {%- endif -%}</p>
     </header>
-    <main>
-        {{content}}
-    </main>
-    <aside>
-        <h3>Recent Posts</h3>
-        {% for post in site.posts %}
-        <li><a href="{{post.url}}">{{ post.title }}</a></li>
-        {% endfor %}
-    </aside>
-    <footer>
-        <p>Copyright &copy; 2021 João Gens</p>
-    </footer>
-</div>
-<script>
-    function myFunction() {
-  var x = document.getElementById("myLinks");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
-}
-</script>
+  
+    <div class="post-content e-content" itemprop="articleBody">
+      {{ content }}
+    </div>
+  
+    {%- if site.disqus.shortname -%}
+      {%- include disqus_comments.html -%}
+    {%- endif -%}
+  
+    <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+  </article>
